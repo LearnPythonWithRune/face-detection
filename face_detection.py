@@ -2,6 +2,8 @@
 import cv2
 
 # using cv2.CascadeClassifier
+# See https://docs.opencv.org/3.4/db/d28/tutorial_cascade_classifier.html
+# See more Cascade Classifiers https://github.com/opencv/opencv/tree/4.x/data/haarcascades
 detector = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
 img = cv2.imread("sample_images/sample-00.jpg")

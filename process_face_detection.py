@@ -3,8 +3,10 @@ import cv2
 
 
 class FaceDetector:
-    def __init__(self):
+    def __init__(self, scale_factor=2, min_neighbors=5):
         self.detector = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+        self.scale_factor = scale_factor
+        self.min_neighbors = min_neighbors
         self.img = None
 
     def read_image(self, filename):
@@ -15,8 +17,8 @@ class FaceDetector:
 
         multi_scale = self.detector.detectMultiScale(
             gray,
-            scaleFactor=2,  # Big reduction
-            minNeighbors=5  # 4-6 range
+            scaleFactor=self.scale_factor,
+            minNeighbors=self.min_neighbors
         )
 
         # drawing a rectangle to the image.
