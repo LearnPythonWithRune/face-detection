@@ -4,7 +4,7 @@ import cv2
 
 class FaceDetector:
     def __init__(self, scale_factor=2, min_neighbors=5):
-        self.detector = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+        self.face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
         self.scale_factor = scale_factor
         self.min_neighbors = min_neighbors
         self.img = None
@@ -15,7 +15,7 @@ class FaceDetector:
     def detect_faces(self):
         gray = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
 
-        multi_scale = self.detector.detectMultiScale(
+        faces = self.face_cascade.detectMultiScale(
             gray,
             scaleFactor=self.scale_factor,
             minNeighbors=self.min_neighbors
@@ -23,7 +23,7 @@ class FaceDetector:
 
         # drawing a rectangle to the image.
         # for loop is used to access all the coordinates of the rectangle.
-        for x, y, w, h in multi_scale:
+        for x, y, w, h in faces:
             cv2.rectangle(self.img, (x, y), (x + w, y + h), (0, 255, 0), 5)
 
         return self.img
@@ -39,4 +39,3 @@ for filename in os.listdir('sample_images/'):
     cv2.imshow("image", img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-
